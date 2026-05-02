@@ -43,12 +43,14 @@ export default function BridgePage() {
 
   useEffect(() => {
     // Trigger AdsKeeper load when the target is resolved and content is shown
+    /* Temporalmente desactivado hasta que se apruebe el dominio
     if (!isLoading && !error && targetUrl) {
       // @ts-ignore
       window._mgq = window._mgq || [];
       // @ts-ignore
       window._mgq.push(["_mgc.load"]);
     }
+    */
   }, [isLoading, error, targetUrl]);
 
   useEffect(() => {
