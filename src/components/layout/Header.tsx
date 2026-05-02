@@ -29,7 +29,7 @@ export default function Header({ onMenuClick }: HeaderProps = {}) {
             </button>
           )}
           <Link to="/" className="text-xl sm:text-2xl font-bold italic tracking-tighter">
-            NotiCrisp<span className="text-xs sm:text-sm font-normal not-italic">.com</span>
+            Dendo<span className="text-xs sm:text-sm font-normal not-italic">.com</span>
           </Link>
         </div>
 

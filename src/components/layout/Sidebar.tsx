@@ -117,7 +117,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }: { isOpen
         )}
 
         <div className="mt-8 mb-4 px-4">
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">NOTICRISP</h3>
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">DENDO</h3>
         </div>
 
         {secondaryNav.map((item) => (
@@ -138,7 +138,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }: { isOpen
         </button>
       </div>
       <div className="p-4 text-xs text-gray-400 text-center">
-        Copyright © Noticrisp 2017-2026<br/>Todos los derechos reservados.
+        Copyright © Dendo 2017-2026<br/>Todos los derechos reservados.
       </div>
     </aside>
     </>

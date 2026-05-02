@@ -94,7 +94,7 @@ export default function BridgePage() {
           <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-center cursor-pointer">
             <div className="text-xl font-black tracking-tight text-[#ff3b00] drop-shadow-sm flex items-center gap-1">
               <div className="bg-[#cc0000] text-white text-xs px-1.5 py-0.5 rounded-sm font-bold border border-yellow-500">NC</div>
-              <span>Jorgethelord<span className="text-white">.com</span></span>
+              <span>NotiCrisp<span className="text-white">.com</span></span>
             </div>
             <div className="text-[7px] sm:text-[8px] text-yellow-400 uppercase font-bold tracking-widest -mt-0.5 drop-shadow-sm">
               EL MEJOR CONTENIDO DE LA RED
