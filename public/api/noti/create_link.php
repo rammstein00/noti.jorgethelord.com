@@ -107,7 +107,7 @@ try {
         // Si falla el mirror, el link local sigue funcionando
     }
     
-    $shortDataUrl = "https://noti.jorgethelord.com/l/" . $short_code;
+    $shortDataUrl = "https://jorgethelord.com/l/" . $short_code;
     
     http_response_code(201);
     echo json_encode([

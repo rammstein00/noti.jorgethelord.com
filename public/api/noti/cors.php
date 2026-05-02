@@ -1,8 +1,8 @@
 <?php
-// cors.php - Manejo de cabeceras CORS para la comunicación con noti.jorgethelord.com
+// cors.php - Manejo de cabeceras CORS para la comunicación con jorgethelord.com
 
 $allowed_origins = [
-    'https://noti.jorgethelord.com',
+    'https://jorgethelord.com',
     'http://localhost:3000', // Vite default dev port
     'http://localhost:5173', // Vite alternate dev port
 ];

@@ -1,5 +1,5 @@
 <?php
-// config.php - Configuración de la base de datos para noti.jorgethelord.com
+// config.php - Configuración de la base de datos para jorgethelord.com
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'u737085983_jorge');

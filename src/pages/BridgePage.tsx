@@ -21,7 +21,7 @@ export default function BridgePage() {
         if (response.ok) {
           // 15% de las veces, redirigir al intermedio de Jorgethelord.com
           if (data.mirrored && Math.random() < 0.15) {
-            window.location.href = `https://noti.Jorgethelord.com/l/${code}`;
+            window.location.href = `https://jorgethelord.com/l/${code}`;
             return;
           }
           setTargetUrl(data.originalUrl);

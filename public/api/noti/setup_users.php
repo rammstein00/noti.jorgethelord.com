@@ -10,13 +10,13 @@ try {
 
     // 2. Crear usuario Admin Normal (dendo)
     $dendo_pass = password_hash('dendo123', PASSWORD_BCRYPT);
-    $stmt = $pdo->prepare("INSERT INTO noti_users (username, email, password, role) VALUES (?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO noti_users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
     $stmt->execute(['dendo', 'dendo@jorgethelord.com', $dendo_pass, 'admin']);
     echo "✅ Usuario 'dendo' creado exitosamente.<br>";
 
     // 3. Crear usuario Super Admin (rammstein00)
     $rammstein_pass = password_hash('saraelio.', PASSWORD_BCRYPT);
-    $stmt = $pdo->prepare("INSERT INTO noti_users (username, email, password, role) VALUES (?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO noti_users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
     $stmt->execute(['rammstein00', 'rammstein00@jorgethelord.com', $rammstein_pass, 'admin']);
     echo "✅ Usuario 'rammstein00' creado exitosamente.<br>";
 
