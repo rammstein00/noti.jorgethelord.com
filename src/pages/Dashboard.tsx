@@ -5,15 +5,17 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } 
 import { useAuth } from '../components/auth/AuthContext';
 
 export default function Dashboard() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const COLORS = ['#3b82f6', '#6366f1', '#10b981', '#f43f5e', '#8b5cf6', '#ec4899', '#14b8a6', '#f59e0b'];
 
   const [stats, setStats] = useState<{ visitas: number; clicks: number; revenue: number; cpm: number } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(isAdmin);
   const [lastUpdate, setLastUpdate] = useState('');
   const [apiError, setApiError] = useState('');
 
   const fetchStats = async () => {
+    if (!isAdmin) return; // Only admin sees AdsKeeper stats
     setIsLoading(true);
     setApiError('');
     try {
@@ -35,18 +37,20 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    if (!isAdmin) return;
     fetchStats();
     const timer = setInterval(fetchStats, 5 * 60 * 1000);
     return () => clearInterval(timer);
   }, [token]);
 
-  const displayVisitas = stats ? stats.visitas.toLocaleString() : '0';
-  const displayRevenue = stats ? `$${stats.revenue.toFixed(2)}` : '$0.00';
-  const displayClicks = stats ? stats.clicks.toLocaleString() : '0';
-  const displayCpm = stats ? `$${stats.cpm.toFixed(2)}` : '$0.00';
+  const displayVisitas = isAdmin && stats ? stats.visitas.toLocaleString() : '0';
+  const displayRevenue = isAdmin && stats ? `$${stats.revenue.toFixed(2)}` : '$0.00';
+  const displayClicks = isAdmin && stats ? stats.clicks.toLocaleString() : '0';
+  const displayCpm = isAdmin && stats ? `$${stats.cpm.toFixed(2)}` : '$0.00';
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
+      {isAdmin && (
       <div className="flex justify-between items-center text-sm text-gray-500">
         <span>
           {isLoading ? 'Sincronizando con AdsKeeper...' : 
@@ -63,6 +67,7 @@ export default function Dashboard() {
           <span className="hidden sm:inline">Refrescar</span>
         </button>
       </div>
+      )}
 
       {/* Alerts */}
       <div className="space-y-2">

@@ -24,7 +24,8 @@ interface WeekdayEarning {
 }
 
 export default function Earnings() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [dailyData, setDailyData] = useState<DailyStat[]>([]);
   const [hourlyData, setHourlyData] = useState<HourlyStat[]>([]);
   const [weekdayData, setWeekdayData] = useState<WeekdayEarning[]>([]);
@@ -33,6 +34,7 @@ export default function Earnings() {
   const [error, setError] = useState('');
 
   const fetchCharts = async () => {
+    if (!isAdmin) { setIsLoading(false); return; }
     setIsLoading(true);
     setError('');
     try {
@@ -84,6 +86,7 @@ export default function Earnings() {
   };
 
   useEffect(() => {
+    if (!isAdmin) { setIsLoading(false); return; }
     fetchCharts();
   }, [token]);
 

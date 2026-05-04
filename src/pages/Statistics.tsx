@@ -23,7 +23,8 @@ interface WeekdayStat {
 }
 
 export default function Statistics() {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [dailyData, setDailyData] = useState<DailyStat[]>([]);
   const [hourlyData, setHourlyData] = useState<HourlyStat[]>([]);
   const [weekdayData, setWeekdayData] = useState<WeekdayStat[]>([]);
@@ -32,6 +33,7 @@ export default function Statistics() {
   const [error, setError] = useState('');
 
   const fetchCharts = async () => {
+    if (!isAdmin) { setIsLoading(false); return; }
     setIsLoading(true);
     setError('');
     try {
@@ -83,6 +85,7 @@ export default function Statistics() {
   };
 
   useEffect(() => {
+    if (!isAdmin) { setIsLoading(false); return; }
     fetchCharts();
   }, [token]);
 
