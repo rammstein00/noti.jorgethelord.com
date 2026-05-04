@@ -63,7 +63,7 @@ export default function Login() {
           <div className="bg-[#11141D] w-16 h-16 rounded-2xl border border-gray-800 flex items-center justify-center mx-auto mb-4 shadow-xl">
             <LogIn className="w-8 h-8 text-blue-500" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Jorgethelord</h1>
+          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Dendo</h1>
           <p className="text-gray-400">Inicia sesión para acceder al panel</p>
         </div>
 
@@ -136,7 +136,7 @@ export default function Login() {
             Portal Privado de Administración
           </p>
           <p className="text-gray-700 text-xs">
-            © {new Date().getFullYear()} Jorgethelord
+            © {new Date().getFullYear()} Dendo
           </p>
         </div>
       </div>

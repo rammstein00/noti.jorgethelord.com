@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { mockStats, mockCountryData } from '../data/mock';
+import { mockCountryData } from '../data/mock';
 import { Eye, Wallet, Users, BarChart, Info, Loader2, RefreshCw } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
 import { useAuth } from '../components/auth/AuthContext';
@@ -40,10 +40,10 @@ export default function Dashboard() {
     return () => clearInterval(timer);
   }, [token]);
 
-  const displayVisitas = stats ? stats.visitas.toLocaleString() : mockStats.visits;
-  const displayRevenue = stats ? `$${stats.revenue.toFixed(2)}` : `$${mockStats.earnings}`;
-  const displayClicks = stats ? stats.clicks.toLocaleString() : `$${mockStats.referrals}`;
-  const displayCpm = stats ? `$${stats.cpm.toFixed(2)}` : `$${mockStats.cpm}`;
+  const displayVisitas = stats ? stats.visitas.toLocaleString() : '0';
+  const displayRevenue = stats ? `$${stats.revenue.toFixed(2)}` : '$0.00';
+  const displayClicks = stats ? stats.clicks.toLocaleString() : '0';
+  const displayCpm = stats ? `$${stats.cpm.toFixed(2)}` : '$0.00';
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -76,7 +76,7 @@ export default function Dashboard() {
         <div className="bg-green-600 text-white px-4 py-2 rounded-md text-sm flex justify-between items-center shadow-sm">
           <div className="flex items-center gap-2">
             <span className="bg-white text-green-600 rounded-full w-4 h-4 flex items-center justify-center text-xs font-bold">i</span>
-            Si eres nuevo en Jorgethelord puedes pedir ayuda mediante nuestro whatsapp de soporte haciendo click aquí
+            Si eres nuevo en Dendo puedes pedir ayuda mediante nuestro whatsapp de soporte haciendo click aquí
           </div>
           <button className="text-white hover:text-green-200">×</button>
         </div>

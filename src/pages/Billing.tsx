@@ -12,7 +12,7 @@ export default function Billing() {
             <Wallet className="w-10 h-10 text-white" />
           </div>
           <div className="p-4 flex-1">
-            <div className="text-3xl font-light text-red-500">$6.07</div>
+            <div className="text-3xl font-light text-red-500">$0.00</div>
             <div className="text-sm text-gray-500 font-medium">Saldo Disponible</div>
           </div>
         </div>
