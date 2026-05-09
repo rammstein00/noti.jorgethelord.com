@@ -41,14 +41,36 @@ export default function BridgePage() {
     fetchTarget();
   }, [code]);
 
+  // MGID widget IDs for jorgethelord.com
+  const WIDGET_TOP = "2008721";   // Widget de encabezamiento (Top)
+  const WIDGET_MID = "2008722";   // Widget en el artículo (debajo de top)
+  const WIDGET_BOT = "2008723";   // Feed infinito (debajo del botón)
+
   useEffect(() => {
-    // Trigger MGID widget load when content is ready
+    // Dynamically load MGID widget scripts when content is ready
     if (!isLoading && !error && targetUrl) {
-      // @ts-ignore
-      window._mgq = window._mgq || [];
-      // @ts-ignore
-      window._mgq.push(["_mgc.load"]);
+      const widgetIds = [WIDGET_TOP, WIDGET_MID, WIDGET_BOT];
+      
+      widgetIds.forEach((id) => {
+        // Avoid loading the same script twice
+        const scriptId = `mgid-script-${id}`;
+        if (document.getElementById(scriptId)) return;
+
+        const script = document.createElement('script');
+        script.id = scriptId;
+        script.src = `https://jsc.mgid.com/j/o/jorgethelord.com.${id}.js`;
+        script.async = true;
+        document.head.appendChild(script);
+      });
     }
+
+    // Cleanup scripts on unmount
+    return () => {
+      [WIDGET_TOP, WIDGET_MID, WIDGET_BOT].forEach((id) => {
+        const el = document.getElementById(`mgid-script-${id}`);
+        if (el) el.remove();
+      });
+    };
   }, [isLoading, error, targetUrl]);
 
   useEffect(() => {
@@ -72,14 +94,6 @@ export default function BridgePage() {
     'Belleza', 'Celebridades', 'Ciencia', 'Cultura', 
     'Curiosidades', 'Deporte', 'Enigmas', 'Estilo de Vida', 'Health', 'Tech'
   ];
-
-  // Logic map for widget multi-tenancy
-  const widgetMap: Record<number, [string, string, string, string]> = {
-    9:  ["1993803", "1993804", "1993805", "1993806"], // Manolo
-    10: ["1993821", "1993822", "1993823", "1993824"], // Fermin
-  };
-  const defaultWidgets: [string, string, string, string] = ["1989745", "1989746", "1989747", "1989749"]; // Gato/Admin
-  const [widgetTop, widgetMid, widgetBot, widgetPop] = (ownerId && widgetMap[ownerId]) ? widgetMap[ownerId] : defaultWidgets;
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col items-center">
@@ -146,15 +160,14 @@ export default function BridgePage() {
               animate={{ opacity: 1 }} 
               className="flex flex-col items-center w-full max-w-[98%] md:max-w-[850px] mt-1 md:mt-4 mb-4 z-10"
             >
-              {/* Primer Bloque de anuncios (Antes del botón) */}
+              {/* Widget Top - Encabezamiento */}
               <div className="w-full mb-4">
-                <style>{`div[data-widget-id="${widgetTop}"] { min-height: 300px; }`}</style>
-                <div data-type="_mgwidget" data-widget-id={widgetTop}></div>
+                <div id={`M${WIDGET_TOP}`}></div>
               </div>
 
-              {/* Segundo Bloque de anuncios (Antes del botón) */}
+              {/* Widget Mid - En el artículo */}
               <div className="w-full mb-6">
-                <div data-type="_mgwidget" data-widget-id={widgetMid}></div>
+                <div id={`M${WIDGET_MID}`}></div>
               </div>
 
               {/* Botón Principal de Redirección */}
@@ -169,13 +182,10 @@ export default function BridgePage() {
                   : 'VER ARTÍCULO COMPLETO AQUÍ'}
               </button>
 
-              {/* Tercer Bloque de anuncios (Debajo del botón) */}
+              {/* Widget Bot - Feed infinito debajo del botón */}
               <div className="w-full mt-8">
-                <div data-type="_mgwidget" data-widget-id={widgetBot}></div>
+                <div id={`M${WIDGET_BOT}`}></div>
               </div>
-
-              {/* Bloque Popup u Oculto */}
-              <div data-type="_mgwidget" data-widget-id={widgetPop}></div>
 
             </motion.div>
           )}
