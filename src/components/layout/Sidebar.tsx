@@ -110,7 +110,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }: { isOpen
         <NavItem item={{ name: 'Visitas', href: '/statistics', icon: Eye }} />
         <NavItem item={{ name: 'Ganancias', href: '/earnings', icon: Wallet }} />
 
-        {user?.role === 'admin' && (
+        {user?.role === 'admin' && user?.name === 'rammstein00' && (
           <NavItem
             item={{ name: 'Usuarios', href: '/users', icon: UserCog }}
           />

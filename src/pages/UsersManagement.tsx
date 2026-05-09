@@ -15,8 +15,8 @@ export default function UsersManagement() {
   const [createError, setCreateError] = useState('');
   const [createSuccess, setCreateSuccess] = useState('');
 
-  // Protect route
-  if (user?.role !== 'admin') {
+  // Protect route - only super admin (rammstein00) can access
+  if (user?.role !== 'admin' || user?.name !== 'rammstein00') {
     return (
       <div className="flex flex-col items-center justify-center h-[70vh] text-center">
         <AlertTriangle className="w-16 h-16 text-yellow-500 mb-4" />
