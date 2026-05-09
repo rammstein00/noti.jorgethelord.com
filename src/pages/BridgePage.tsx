@@ -42,15 +42,13 @@ export default function BridgePage() {
   }, [code]);
 
   useEffect(() => {
-    // Trigger AdsKeeper load when the target is resolved and content is shown
-    /* Temporalmente desactivado hasta que se apruebe el dominio
+    // Trigger MGID widget load when content is ready
     if (!isLoading && !error && targetUrl) {
       // @ts-ignore
       window._mgq = window._mgq || [];
       // @ts-ignore
       window._mgq.push(["_mgc.load"]);
     }
-    */
   }, [isLoading, error, targetUrl]);
 
   useEffect(() => {
