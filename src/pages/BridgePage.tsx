@@ -41,36 +41,19 @@ export default function BridgePage() {
     fetchTarget();
   }, [code]);
 
-  // MGID widget IDs for jorgethelord.com
+  // AdsKeeper widget IDs for jorgethelord.com
   const WIDGET_TOP = "2008721";   // Widget de encabezamiento (Top)
   const WIDGET_MID = "2008722";   // Widget en el artículo (debajo de top)
   const WIDGET_BOT = "2008723";   // Feed infinito (debajo del botón)
 
   useEffect(() => {
-    // Dynamically load MGID widget scripts when content is ready
+    // Trigger AdsKeeper widget rendering when content is ready
     if (!isLoading && !error && targetUrl) {
-      const widgetIds = [WIDGET_TOP, WIDGET_MID, WIDGET_BOT];
-      
-      widgetIds.forEach((id) => {
-        // Avoid loading the same script twice
-        const scriptId = `mgid-script-${id}`;
-        if (document.getElementById(scriptId)) return;
-
-        const script = document.createElement('script');
-        script.id = scriptId;
-        script.src = `https://jsc.adskeeper.com/j/o/jorgethelord.com.${id}.js`;
-        script.async = true;
-        document.head.appendChild(script);
-      });
+      // @ts-ignore
+      window._mgq = window._mgq || [];
+      // @ts-ignore
+      window._mgq.push(["_mgc.load"]);
     }
-
-    // Cleanup scripts on unmount
-    return () => {
-      [WIDGET_TOP, WIDGET_MID, WIDGET_BOT].forEach((id) => {
-        const el = document.getElementById(`mgid-script-${id}`);
-        if (el) el.remove();
-      });
-    };
   }, [isLoading, error, targetUrl]);
 
   useEffect(() => {
@@ -160,14 +143,15 @@ export default function BridgePage() {
               animate={{ opacity: 1 }} 
               className="flex flex-col items-center w-full max-w-[98%] md:max-w-[850px] mt-1 md:mt-4 mb-4 z-10"
             >
-              {/* Widget Top - Encabezamiento */}
+              {/* Widget Top - Encabezamiento (con min-height) */}
               <div className="w-full mb-4">
-                <div id={`M${WIDGET_TOP}`}></div>
+                <style>{`div[data-widget-id="${WIDGET_TOP}"] { min-height: 300px; }`}</style>
+                <div data-type="_mgwidget" data-widget-id={WIDGET_TOP}></div>
               </div>
 
-              {/* Widget Mid - En el artículo */}
+              {/* Widget Mid - Debajo del top */}
               <div className="w-full mb-6">
-                <div id={`M${WIDGET_MID}`}></div>
+                <div data-type="_mgwidget" data-widget-id={WIDGET_MID}></div>
               </div>
 
               {/* Botón Principal de Redirección */}
@@ -184,7 +168,7 @@ export default function BridgePage() {
 
               {/* Widget Bot - Feed infinito debajo del botón */}
               <div className="w-full mt-8">
-                <div id={`M${WIDGET_BOT}`}></div>
+                <div data-type="_mgwidget" data-widget-id={WIDGET_BOT}></div>
               </div>
 
             </motion.div>
