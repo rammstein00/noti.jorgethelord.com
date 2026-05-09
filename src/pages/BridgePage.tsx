@@ -58,7 +58,7 @@ export default function BridgePage() {
 
         const script = document.createElement('script');
         script.id = scriptId;
-        script.src = `https://jsc.mgid.com/j/o/jorgethelord.com.${id}.js`;
+        script.src = `https://jsc.adskeeper.com/j/o/jorgethelord.com.${id}.js`;
         script.async = true;
         document.head.appendChild(script);
       });
