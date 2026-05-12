@@ -18,7 +18,7 @@ export default function CreateLink() {
   });
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     if (!url || !url.startsWith('http')) {
@@ -86,6 +86,12 @@ export default function CreateLink() {
       });
 
       const data = await response.json();
+
+      // If token expired, auto-logout
+      if (response.status === 401) {
+        logout();
+        return;
+      }
 
       if (!response.ok) throw new Error(data.error || 'Error al acortar enlance');
       

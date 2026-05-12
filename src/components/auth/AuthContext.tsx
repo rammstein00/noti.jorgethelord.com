@@ -16,6 +16,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const savedImpersona = localStorage.getItem('noti_impersonated');
 
     if (savedToken && savedUser) {
+      // Check if token is expired by decoding the JWT payload
+      try {
+        const payloadBase64 = savedToken.split('.')[1];
+        const payload = JSON.parse(atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/')));
+        if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
+          // Token expired — clear everything
+          localStorage.removeItem('noti_token');
+          localStorage.removeItem('noti_user');
+          localStorage.removeItem('noti_impersonated');
+          setIsLoading(false);
+          return;
+        }
+      } catch (e) {
+        // If we can't decode, clear the token
+        localStorage.removeItem('noti_token');
+        localStorage.removeItem('noti_user');
+        setIsLoading(false);
+        return;
+      }
+
       setToken(savedToken);
       try {
         setUser(JSON.parse(savedUser));
